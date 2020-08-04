@@ -1,4 +1,4 @@
-# gallery_dapp
+# nuxt-gallery-dapp
 
 ## Build Setup
 
