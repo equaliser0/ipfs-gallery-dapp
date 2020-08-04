@@ -1,4 +1,4 @@
-# ipfs_gallery_dapp
+# ipfs-gallery-dapp
 A simple photo gallery built with [Nuxt.js](https://nuxtjs.org/) & [IPFS](https://ipfs.io/).
 
 ## IPFS Node Setup
