@@ -1,6 +1,6 @@
 <template>
 	<header class="header-container">
-		<h1 class="title">My Personal Photo Gallery</h1>
+		<h1 class="title">My Photo Gallery</h1>
 	</header>
 </template>
 
