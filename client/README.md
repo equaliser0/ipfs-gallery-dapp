@@ -1,4 +1,4 @@
-# gallery_dapp
+# nuxt client
 
 ## Build Setup
 
