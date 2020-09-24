@@ -8,30 +8,37 @@
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			urls: [],
-		};
-	},
+import { defineComponent, useContext, ref } from "@nuxtjs/composition-api";
 
-	methods: {
-		async onImageSelection(event) {
-			await this.addImages(event.target.files);
-		},
+export default defineComponent({
+	emits: ["onImageSelection"],
 
-		async addImages(images) {
-			for await (const result of this.$ipfs.addAll(images)) {
+	setup(_, { emit }) {
+		const urls = ref([]);
+		const { $ipfs } = useContext();
+
+		async function onImageSelection(event) {
+			await addImages(event.target.files);
+		}
+
+		async function addImages(images) {
+			for await (const result of $ipfs.addAll(images)) {
 				if (result.path) {
-					this.urls.push(`http://localhost:8080/ipfs/${result.path}`);
+					urls.value.push(`http://localhost:8080/ipfs/${result.path}`);
 				}
 			}
 
-			this.$emit("onImgAddEvent", this.urls);
-			this.urls = [];
-		},
+			emit("onImgAddEvent", urls.value);
+			urls.value = [];
+		}
+
+		return {
+			urls,
+			onImageSelection,
+			addImages,
+		};
 	},
-};
+});
 </script>
 
 <style scoped>

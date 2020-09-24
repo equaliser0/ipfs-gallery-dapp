@@ -17,9 +17,10 @@
 </template>
 
 <script>
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 import ImageModal from "./ImageModal";
 
-export default {
+export default defineComponent({
 	components: {
 		ImageModal,
 	},
@@ -31,25 +32,28 @@ export default {
 		},
 	},
 
-	data() {
+	setup() {
+		const showModal = ref(false);
+		const modalImageUrl = ref("");
+
+		function openImageModal(url) {
+			showModal.value = true;
+			modalImageUrl.value = url;
+		}
+
+		function closeImageModal() {
+			showModal.value = false;
+			modalImageUrl.value = "";
+		}
+
 		return {
-			showModal: false,
-			modalImageUrl: "",
+			showModal,
+			modalImageUrl,
+			openImageModal,
+			closeImageModal,
 		};
 	},
-
-	methods: {
-		openImageModal(url) {
-			this.showModal = true;
-			this.modalImageUrl = url;
-		},
-
-		closeImageModal() {
-			this.showModal = false;
-			this.modalImageUrl = "";
-		},
-	},
-};
+});
 </script>
 
 <style scoped>

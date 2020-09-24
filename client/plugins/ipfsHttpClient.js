@@ -1,6 +1,7 @@
 import IPFSHttpClient from "ipfs-http-client";
+import { defineNuxtPlugin } from "@nuxtjs/composition-api";
 
-export default (_, inject) => {
+export default defineNuxtPlugin((_, inject) => {
 	const ipfs = IPFSHttpClient({
 		host: "localhost",
 		port: "5001",
@@ -9,4 +10,4 @@ export default (_, inject) => {
 	});
 
 	inject("ipfs", ipfs);
-};
+});

@@ -7,35 +7,42 @@
 </template>
 
 <script>
+import { defineComponent, useAsync, useContext } from "@nuxtjs/composition-api";
+
 import Components from "@/components/index";
 
-export default {
+export default defineComponent({
 	components: {
 		...Components,
 	},
 
-	async asyncData({ $ipfs }) {
-		const imgUrls = [];
+	setup() {
+		const { $ipfs } = useContext();
 
-		for await (const { cid, type } of $ipfs.pin.ls()) {
-			if (type === "recursive") {
-				imgUrls.push(`http://localhost:8080/ipfs/${cid}`);
+		const imgUrls = useAsync(() => getImgUrls());
+
+		async function getImgUrls() {
+			const cids = [];
+			for await (const { cid, type } of $ipfs.pin.ls()) {
+				if (type === "recursive") {
+					cids.push(`http://localhost:8080/ipfs/${cid}`);
+				}
 			}
+
+			return cids;
 		}
 
-		return { imgUrls };
-	},
-
-	methods: {
-		updateGallery(urls) {
+		function updateGallery(urls) {
 			for (const url of urls) {
 				if (!this.imgUrls.includes(url)) {
 					this.imgUrls.unshift(url);
 				}
 			}
-		},
+		}
+
+		return { imgUrls, updateGallery };
 	},
-};
+});
 </script>
 
 <style scoped>
