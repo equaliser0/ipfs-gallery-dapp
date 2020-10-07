@@ -34,8 +34,8 @@ export default defineComponent({
 
 		function updateGallery(urls) {
 			for (const url of urls) {
-				if (!this.imgUrls.includes(url)) {
-					this.imgUrls.unshift(url);
+				if (!imgUrls.value.includes(url)) {
+					imgUrls.value.unshift(url);
 				}
 			}
 		}
