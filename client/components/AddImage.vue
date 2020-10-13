@@ -23,9 +23,7 @@ export default defineComponent({
 
 		async function addImages(images) {
 			for await (const result of $ipfs.addAll(images)) {
-				if (result.path) {
-					urls.value.push(`http://localhost:8080/ipfs/${result.path}`);
-				}
+				urls.value.push(`http://localhost:8080/ipfs/${result.path}`);
 			}
 
 			emit("onImgAddEvent", urls.value);
